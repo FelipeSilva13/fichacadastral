@@ -15,7 +15,8 @@ public class Conexao {
    
 
 
-    // Substitua estes valores pelos detalhes do seu banco de dados
+    // dados para conexão com banco de dados
+
     private static final String URL = "jdbc:mysql://localhost:3306/dbcadastro";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "felipe87";
