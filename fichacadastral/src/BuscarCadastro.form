@@ -38,6 +38,7 @@
                           <Component id="jbnDeletar" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jbnAlterar" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jbnImprimir" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id>="jbnVoltar" alignment="1" min="-2" max"-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>

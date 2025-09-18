@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author felip
+ * @author felipe
  */
 public class Conexao {
    

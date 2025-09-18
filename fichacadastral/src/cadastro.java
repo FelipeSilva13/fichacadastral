@@ -98,7 +98,7 @@ public class cadastro extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel1.setText("Igreja Pentecostal Viver é Cristo         2024");
+        jLabel1.setText("Igreja Pentecostal Viver é Cristo         2025");
 
         jLabel2.setText("Avenida Otaviano Costa 735 - Ipacarai");
 
