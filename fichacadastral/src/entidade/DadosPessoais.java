@@ -81,7 +81,4 @@ public class DadosPessoais {
     public void setEstado_civil(String estado_civil) {
         this.estado_civil = estado_civil;
     }
-    
-    
-    
 }

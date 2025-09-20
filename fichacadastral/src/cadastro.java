@@ -3,8 +3,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-
-
+import javax.swing.*;
+import java.awt.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -21,26 +21,170 @@ public class cadastro extends javax.swing.JFrame {
     private static final String PASSWORD = "felipe87";
    
     private Connection getConnection() {
-    // Esta função retorna uma conexão com o banco de dados MySQL
-    try {
-        // Carrega o driver JDBC para MySQL
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        // Retorna uma conexão com o banco de dados
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-    } catch (ClassNotFoundException | SQLException ex) {
-        // Lança uma exceção caso algo dê errado ao tentar estabelecer uma conexão
-        JOptionPane.showMessageDialog(this, "Erro ao conectar com o banco de dados: " + ex.getMessage());
-        return null;
+        // Esta função retorna uma conexão com o banco de dados MySQL
+        try {
+            // Carrega o driver JDBC para MySQL
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Retorna uma conexão com o banco de dados
+            return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (ClassNotFoundException | SQLException ex) {
+            // Lança uma exceção caso algo dê errado ao tentar estabelecer uma conexão
+            JOptionPane.showMessageDialog(this, "Erro ao conectar com o banco de dados: " + ex.getMessage(),
+                "Erro de Conexão", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
     }
-}
 
     /**
      * Creates new form cadastro
      */
     public cadastro() {
         initComponents();
+        configurarCores();
+    }
+    
+    /**
+     * Configura as cores e aparência da interface
+     */
+    private void configurarCores() {
+        // Configurar cores do fundo
+        getContentPane().setBackground(new Color(240, 248, 255)); // Alice Blue
         
+        // Configurar título principal
+        jLabel1.setForeground(new Color(25, 25, 112)); // Midnight Blue
+        jLabel1.setFont(new Font("Arial", Font.BOLD, 24));
         
+        // Configurar subtítulo
+        jLabel2.setForeground(new Color(25, 25, 112)); // Steel Blue
+        jLabel2.setFont(new Font("Arial", Font.ITALIC, 12));
+
+        
+        // Configurar seções
+        configurarSecao(jLabel3, "DADOS PESSOAIS");
+        configurarSecao(jLabel12, "DADOS MEMBRO NA IGREJA");
+        
+        // Configurar labels dos campos
+        Color corLabel = new Color(47, 79, 79); // Dark Slate Gray
+        Font fonteLabel = new Font("Arial", Font.BOLD, 12);
+        
+        jLabel4.setForeground(corLabel); jLabel4.setFont(fonteLabel);
+        jLabel5.setForeground(corLabel); jLabel5.setFont(fonteLabel);
+        jLabel6.setForeground(corLabel); jLabel6.setFont(fonteLabel);
+        jLabel7.setForeground(corLabel); jLabel7.setFont(fonteLabel);
+        jLabel8.setForeground(corLabel); jLabel8.setFont(fonteLabel);
+        jLabel9.setForeground(corLabel); jLabel9.setFont(fonteLabel);
+        jLabel10.setForeground(corLabel); jLabel10.setFont(fonteLabel);
+        jLabel11.setForeground(corLabel); jLabel11.setFont(fonteLabel);
+        jLabel13.setForeground(corLabel); jLabel13.setFont(fonteLabel);
+        jLabel14.setForeground(corLabel); jLabel14.setFont(fonteLabel);
+        jLabel15.setForeground(corLabel); jLabel15.setFont(fonteLabel);
+        jLabel16.setForeground(corLabel); jLabel16.setFont(fonteLabel);
+        
+        // Configurar campos de texto
+        configurarCampoTexto(txtnome);
+        configurarCampoTexto(txtendeereco);
+        configurarCampoTexto(txtcidade);
+        configurarCampoTexto(txttelefones);
+        configurarCampoTexto(txtbairro);
+        configurarCampoTexto(txtnascimento);
+        configurarCampoTexto(txtestado);
+        configurarCampoTexto(txtestadocivil);
+        configurarCampoTexto(txtcargo);
+        configurarCampoTexto(txtdataafiliacao);
+        configurarCampoTexto(txtdizimo);
+        
+        // Configurar área de texto
+        txtobs.setBackground(new Color(255, 255, 255));
+        txtobs.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1));
+        txtobs.setFont(new Font("Arial", Font.PLAIN, 12));
+        
+        // Configurar botões
+        configurarBotao(btncadastrar, new Color(34, 139, 34), Color.WHITE, "CADASTRAR");
+        configurarBotao(btnbuscar, new Color(70, 130, 180), Color.WHITE, "BUSCAR");
+    }
+    
+    /**
+     * Configura uma seção (título de grupo)
+     */
+    private void configurarSecao(JLabel label, String texto) {
+        label.setText(texto);
+        label.setForeground(new Color(70, 130, 180)); // Steel Blue
+        label.setFont(new Font("Arial", Font.BOLD, 14));
+        label.setBorder(BorderFactory.createMatteBorder(0, 0, 2, -10, new Color(70, 130, 180)));
+    }
+    
+    /**
+     * Configura a aparência de um campo de texto
+     */
+    private void configurarCampoTexto(JTextPane campo) {
+        campo.setBackground(new Color(255, 255, 255));
+        campo.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1));
+        campo.setFont(new Font("Arial", Font.PLAIN, 12));
+    }
+    
+    /**
+     * Configura a aparência de um botão
+     */
+    private void configurarBotao(JButton botao, Color corFundo, Color corTexto, String texto) {
+        botao.setText(texto);
+        botao.setBackground(corFundo);
+        botao.setForeground(corTexto);
+        botao.setFont(new Font("Arial", Font.BOLD, 14));
+        botao.setBorder(BorderFactory.createRaisedBevelBorder());
+        botao.setFocusPainted(false);
+        botao.setPreferredSize(new Dimension(120, 35));
+    }
+    
+    /**
+     * Valida os dados antes de salvar
+     */
+    private boolean validarDados() {
+        // Verificar campos obrigatórios
+        if (txtnome.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Nome é obrigatório!", 
+                "Validação", JOptionPane.WARNING_MESSAGE);
+            txtnome.requestFocus();
+            return false;
+        }
+        
+        if (txttelefones.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Telefone é obrigatório!", 
+                "Validação", JOptionPane.WARNING_MESSAGE);
+            txttelefones.requestFocus();
+            return false;
+        }
+        
+        // Validar formato do telefone (apenas números)
+        String telefone = txttelefones.getText().trim().replaceAll("[^0-9]", "");
+        if (telefone.length() < 10) {
+            JOptionPane.showMessageDialog(this, "Telefone deve ter pelo menos 10 dígitos!", 
+                "Validação", JOptionPane.WARNING_MESSAGE);
+            txttelefones.requestFocus();
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Limpa todos os campos do formulário
+     */
+    private void limparCampos() {
+        txtnome.setText("");
+        txtendeereco.setText("");
+        txtcidade.setText("");
+        txttelefones.setText("");
+        txtbairro.setText("");
+        txtnascimento.setText("");
+        txtestado.setText("");
+        txtestadocivil.setText("");
+        txtcargo.setText("");
+        txtdataafiliacao.setText("");
+        txtdizimo.setText("");
+        txtobs.setText("");
+        
+        // Focar no primeiro campo
+        txtnome.requestFocus();
     }
 
     /**
@@ -96,6 +240,7 @@ public class cadastro extends javax.swing.JFrame {
         txtbairro = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Cadastro - Igreja Pentecostal Viver é Cristo");
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Igreja Pentecostal Viver é Cristo         2025");
@@ -111,7 +256,7 @@ public class cadastro extends javax.swing.JFrame {
 
         jLabel6.setText("Cidade");
 
-        jLabel7.setText("Telefones");
+        jLabel7.setText("Telefone");
 
         jScrollPane1.setViewportView(txtnome);
 
@@ -298,7 +443,9 @@ public class cadastro extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel13))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                         .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -326,100 +473,164 @@ public class cadastro extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
-   
-    // Essa função é chamada quando o botão de cadastrar é acionado
-    // Primeiro, obtenha uma conexão com o banco de dados
-    Connection connection = getConnection();
-    // Se a conexão é nula, não prossiga
-    if (connection == null) {
-        return;
-    }
-    
-    // Defina a instrução SQL `INSERT` para a tabela `dadospessoais`
-    String sqlTabela1 = "INSERT INTO dadospessoais (nome, nascimento, endereco, bairro, cidade, estado, telefones, estado_civil) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    String sqlTabela2 = "INSERT INTO membro_igreja (cargo, dataafiliacao, dizimo, obs) Values (?, ?, ?, ?)";  
-    
-    PreparedStatement stmt1 = null;
-    PreparedStatement stmt2 = null;
+        // Validar dados antes de salvar
+        if (!validarDados()) {
+            return;
+        }
+        
+        // Essa função é chamada quando o botão de cadastrar é acionado
+        // Primeiro, obtenha uma conexão com o banco de dados
+        Connection connection = getConnection();
+        // Se a conexão é nula, não prossiga
+        if (connection == null) {
+            return;
+        }
+        
+        PreparedStatement stmtDadosPessoais = null;
+        PreparedStatement stmtMembro = null;
+        
         try {
-        // Crie um `PreparedStatement` usando a conexão
-        stmt1 = connection.prepareStatement(sqlTabela1);
-        
-        
-        // Preencha os valores dos campos de entrada
-        stmt1.setString(1, txtnome.getText());
-        stmt1.setString(2, txtnascimento.getText());
-        stmt1.setString(3, txtendeereco.getText());
-        stmt1.setString(4, txtbairro.getText());
-        stmt1.setString(5, txtcidade.getText());
-        stmt1.setString(6, txtestado.getText());
-        stmt1.setString(7, txttelefones.getText());
-        stmt1.setString(8, txtestadocivil.getText());
-        
-      
-        
-        
-        
-        stmt2 = connection.prepareStatement(sqlTabela2);
-        
-        stmt2.setString(1, txtcargo.getText());
-        stmt2.setString(2, txtdataafiliacao.getText());
-        stmt2.setString(3, txtdizimo.getText());
-        stmt2.setString(4, txtobs.getText());
-        
-        // Execute a instrução SQL
-       int rowsAffected;
-
-rowsAffected = stmt1.executeUpdate();
-// Você pode adicionar lógica para lidar com rowsAffected aqui, se necessário.
-
-rowsAffected = stmt2.executeUpdate();
-// Você pode adicionar lógica para lidar com rowsAffected aqui, se necessário.
-
-        
-        // Exiba uma mensagem de sucesso ou falha com base no resultado
-        if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Falha ao cadastrar.");
-        }
-    } catch (SQLException ex) {
-        // Trate qualquer exceção ocorrida durante a execução do comando SQL
-        JOptionPane.showMessageDialog(this, "Erro ao cadastrar: " + ex.getMessage());
-    } finally {
-        // Feche a declaração e a conexão
-        try {
-            if (stmt1 != null) {
-                stmt1.close();
+            // Desabilitar auto-commit para usar transação
+            connection.setAutoCommit(false);
+            
+            // 1. Inserir na tabela dadospessoais
+            String sqlDadosPessoais = "INSERT INTO dadospessoais (nome, nascimento, bairro, cidade, estado, telefone, estado_civil) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            stmtDadosPessoais = connection.prepareStatement(sqlDadosPessoais, PreparedStatement.RETURN_GENERATED_KEYS);
+            
+            // Preencher os dados pessoais
+            stmtDadosPessoais.setString(1, txtnome.getText().trim());
+            stmtDadosPessoais.setString(2, txtnascimento.getText().trim());
+            stmtDadosPessoais.setString(3, txtbairro.getText().trim());
+            stmtDadosPessoais.setString(4, txtcidade.getText().trim());
+            stmtDadosPessoais.setString(5, txtestado.getText().trim());
+            
+            // Converter telefone para int (removendo caracteres não numéricos)
+            String telefoneStr = txttelefones.getText().trim().replaceAll("[^0-9]", "");
+            long telefone = telefoneStr.isEmpty() ? 0 : Long.parseLong(telefoneStr);
+            stmtDadosPessoais.setLong(6, telefone);
+            
+            stmtDadosPessoais.setString(7, txtestadocivil.getText().trim());
+            
+            // Executar inserção na tabela dadospessoais
+            int rowsAffectedDados = stmtDadosPessoais.executeUpdate();
+            
+            if (rowsAffectedDados > 0) {
+                // Obter o ID gerado para os dados pessoais
+                var generatedKeys = stmtDadosPessoais.getGeneratedKeys();
+                int idDadosPessoais = 0;
+                if (generatedKeys.next()) {
+                    idDadosPessoais = generatedKeys.getInt(1);
+                }
+                
+                // 2. Inserir na tabela membro (dados da igreja)
+                String sqlMembro = "INSERT INTO membro (id_dados_pessoais, endereco, cargo, data_afiliacao, dizimo, observacoes) VALUES (?, ?, ?, ?, ?, ?)";
+                stmtMembro = connection.prepareStatement(sqlMembro);
+                
+                // Preencher os dados do membro
+                stmtMembro.setInt(1, idDadosPessoais);
+                stmtMembro.setString(2, txtendeereco.getText().trim());
+                stmtMembro.setString(3, txtcargo.getText().trim());
+                stmtMembro.setString(4, txtdataafiliacao.getText().trim());
+                stmtMembro.setString(5, txtdizimo.getText().trim());
+                stmtMembro.setString(6, txtobs.getText().trim());
+                
+                // Executar inserção na tabela membro
+                int rowsAffectedMembro = stmtMembro.executeUpdate();
+                
+                if (rowsAffectedMembro > 0) {
+                    // Confirmar a transação
+                    connection.commit();
+                    
+                    JOptionPane.showMessageDialog(this, 
+                        "Cadastro realizado com sucesso!\n" +
+                        "Membro: " + txtnome.getText() + "\n" +
+                        "ID dos Dados Pessoais: " + idDadosPessoais,
+                        "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    // Perguntar se deseja cadastrar outro membro
+                    int opcao = JOptionPane.showConfirmDialog(this,
+                        "Deseja cadastrar outro membro?",
+                        "Novo Cadastro",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+                    
+                    if (opcao == JOptionPane.YES_OPTION) {
+                        limparCampos();
+                    }
+                } else {
+                    // Reverter a transação em caso de erro
+                    connection.rollback();
+                    JOptionPane.showMessageDialog(this, 
+                        "Erro ao cadastrar dados do membro. Operação cancelada.",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Reverter a transação em caso de erro
+                connection.rollback();
+                JOptionPane.showMessageDialog(this, 
+                    "Erro ao cadastrar dados pessoais. Operação cancelada.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
             }
-            if (stmt2 != null) {
-                stmt2.close();
+            
+        } catch (SQLException ex) {
+            // Reverter a transação em caso de exceção
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
             }
-            if (connection != null) {
-                connection.close();
+            
+            // Tratar exceções específicas
+            if (ex.getMessage().contains("Duplicate entry")) {
+                JOptionPane.showMessageDialog(this, 
+                    "Este membro já está cadastrado no sistema!",
+                    "Cadastro Duplicado", JOptionPane.WARNING_MESSAGE);
+            } else if (ex.getMessage().contains("doesn't exist")) {
+                JOptionPane.showMessageDialog(this, 
+                    "Erro: Tabela não encontrada no banco de dados.\n" +
+                    "Verifique se as tabelas 'dadospessoais' e 'membro' existem.",
+                    "Erro de Estrutura", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "Erro ao cadastrar: " + ex.getMessage(),
+                    "Erro de Banco de Dados", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } finally {
+            // Restaurar auto-commit e fechar recursos
+            try {
+                if (connection != null) {
+                    connection.setAutoCommit(true);
+                }
+                if (stmtDadosPessoais != null) {
+                    stmtDadosPessoais.close();
+                }
+                if (stmtMembro != null) {
+                    stmtMembro.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-    
-        }
-
     }//GEN-LAST:event_btncadastrarActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-        // TODO add your handling code here:
-         // Cria uma nova instância de BuscaFrame (a tela de busca)
-    BuscarCadastro buscarCadastro = new BuscarCadastro();
+        // Cria uma nova instância de BuscaFrame (a tela de busca)
+        BuscarCadastro buscarCadastro = new BuscarCadastro();
 
-    // Torna a nova tela de busca visível
-    buscarCadastro.setVisible(true);
+        // Torna a nova tela de busca visível
+        buscarCadastro.setVisible(true);
 
-    // Fecha ou esconde a tela de cadastro atual
-    dispose(); // Fecha a tela atual (CadastroFrame)
-        
+        // Fecha ou esconde a tela de cadastro atual
+        dispose(); // Fecha a tela atual (CadastroFrame)
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     /**
@@ -433,7 +644,7 @@ rowsAffected = stmt2.executeUpdate();
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -501,6 +712,4 @@ rowsAffected = stmt2.executeUpdate();
     private javax.swing.JTextArea txtobs;
     private javax.swing.JTextPane txttelefones;
     // End of variables declaration//GEN-END:variables
-
-
 }
