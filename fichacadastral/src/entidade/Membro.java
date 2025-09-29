@@ -10,66 +10,75 @@ package entidade;
  */
 public class Membro {
     private int id;
-    private int id_dados_pessoais;
-    private String endereco;
-    private String cargo;
-    private String data_afiliacao;
-    private String dizimo;
-    private String observacoes;
+    private String nome;
+    private String nascimento;
+    private String bairro;
+    private String cidade;
+    private String estado;
+    private int telefone;
+    private String estado_civil;
 
     public int getId() {
         return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getNascimento() {
+        return nascimento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public int getTelefone() {
+        return telefone;
+    }
+
+    public String getEstado_civil() {
+        return estado_civil;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getId_dados_pessoais() {
-        return id_dados_pessoais;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void setId_dados_pessoais(int id_dados_pessoais) {
-        this.id_dados_pessoais = id_dados_pessoais;
+    public void setNascimento(String nascimento) {
+        this.nascimento = nascimento;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getCargo() {
-        return cargo;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setTelefone(int telefone) {
+        this.telefone = telefone;
     }
 
-    public String getData_afiliacao() {
-        return data_afiliacao;
-    }
-
-    public void setData_afiliacao(String data_afiliacao) {
-        this.data_afiliacao = data_afiliacao;
-    }
-
-    public String getDizimo() {
-        return dizimo;
-    }
-
-    public void setDizimo(String dizimo) {
-        this.dizimo = dizimo;
-    }
-
-    public String getObservacoes() {
-        return observacoes;
-    }
-
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
+    public void setEstado_civil(String estado_civil) {
+        this.estado_civil = estado_civil;
     }
 }

@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 import java.awt.print.*;
-import entidade.DadosPessoais;
+import entidade.Membro;
 
 /**
  *
@@ -20,7 +20,7 @@ public class BuscarCadastro extends javax.swing.JFrame {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "felipe87";
     
-    private DadosPessoais dadosEncontrados = null;
+    private Membro dadosEncontrados = null;
 
     /**
      * Creates new form BuscarCadastro
@@ -90,8 +90,8 @@ public class BuscarCadastro extends javax.swing.JFrame {
     /**
      * Busca um cadastro pelo nome
      */
-    private DadosPessoais buscarCadastroPorNome(String nome) {
-        String sql = "SELECT * FROM membros WHERE nome LIKE ? LIMIT 1";
+    private Membro buscarCadastroPorNome(String nome) {
+        String sql = "SELECT * FROM membro WHERE nome LIKE ? LIMIT 1";
         
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -100,7 +100,7 @@ public class BuscarCadastro extends javax.swing.JFrame {
             ResultSet rs = stmt.executeQuery();
             
             if (rs.next()) {
-                DadosPessoais dados = new DadosPessoais();
+                Membro dados = new Membro();
                 dados.setId(rs.getInt("id"));
                 dados.setNome(rs.getString("nome"));
                 dados.setTelefone(rs.getInt("telefone"));
@@ -120,8 +120,8 @@ public class BuscarCadastro extends javax.swing.JFrame {
     /**
      * Atualiza um cadastro existente
      */
-    private boolean atualizarCadastro(DadosPessoais dados) {
-        String sql = "UPDATE membros SET nome = ?, telefone = ? WHERE id = ?";
+    private boolean atualizarCadastro(Membro dados) {
+        String sql = "UPDATE membro SET nome = ?, telefone = ? WHERE id = ?";
         
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -145,7 +145,7 @@ public class BuscarCadastro extends javax.swing.JFrame {
      * Deleta um cadastro
      */
     private boolean deletarCadastro(int id) {
-        String sql = "DELETE FROM membros WHERE id = ?";
+        String sql = "DELETE FROM membro WHERE id = ?";
         
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
